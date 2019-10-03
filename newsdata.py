@@ -1,4 +1,4 @@
-import psycopg2
+ import psycopg2
 
 query1 = ""
 query2 = ""
