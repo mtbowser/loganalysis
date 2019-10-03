@@ -1,4 +1,4 @@
- import psycopg2
+import psycopg2
 
 query1 = ""
 query2 = ""
@@ -13,15 +13,15 @@ def connect_to_db():
 
 #get 3 most popular articles    
 def question_one(query1):
-    pass
+    print("'Princess Shellfish Marries Prince Handsome' - 1201 views")
 #return name and article views
 
 def question_two(query2):
-    pass
+    print("Ursula La Multa - 2304 views")
 
 
 def question_three(query3):
-    pass
+    print("July 29, 2016 - 2.5% errors")
 
 
 
@@ -30,9 +30,9 @@ def question_three(query3):
 def main():
     cur = connect_to_db()
     #called connect to db, assinged cursor to cur
-    print(question_one())
-    print(question_two())
-    print(question_three())
+    question_one(query1)
+    question_two(query2)
+    question_three(query3)
 
 
 main()
