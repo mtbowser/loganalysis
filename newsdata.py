@@ -1,7 +1,15 @@
 import psycopg2
+
+
+# psql -d news 
+# explore the tables using the \dt and \d table commands and select statements 
 #i want articles.title and number of views from the log table for that article. 
-query1 = ""
-query2 = ""
+query1 = "select articles.title, count (*) as views\
+ from articles join log on log.path = concat('/article/', articles.slug)\
+ group by articles.title\
+ order by views desc\
+ limit 3"
+query2 = " "
 query3 = ""
 
 #connecting to db
@@ -14,7 +22,12 @@ def connect_to_db():
 #1. What are the most popular three articles of all time? 
 #Present this information as a sorted list with the most popular article at the top.
 def question_one(query1):
-    print("'Princess Shellfish Marries Prince Handsome' - 1201 views")
+    
+    cur = connect_to_db()
+    cur.execute(query1)
+    result = cur.fetchall()
+    print(result)
+#print("'Princess Shellfish Marries Prince Handsome' - 1201 views")
 #return name and article views
 
 
@@ -35,7 +48,6 @@ def question_three(query3):
 
 
 def main():
-    cur = connect_to_db()
     #called connect to db, assinged cursor to cur
     question_one(query1)
     question_two(query2)
