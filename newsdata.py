@@ -9,9 +9,11 @@ query1 = "select articles.title, count (*) as views\
  group by articles.title\
  order by views desc\
  limit 3"
-query2 = "select articles.author, count (*) as views\
+ #need to join the articles and the authors table by a single field 
+query2 = "select authors.name, count (*) as views\
+        from authors
 	from articles join log on log.path = concat('/article/', articles.slug)\
-	group by articles.author.id\
+        group by authors.name\
 	order by views desc\
 	limit 5"
 query3 = ""
