@@ -9,7 +9,11 @@ query1 = "select articles.title, count (*) as views\
  group by articles.title\
  order by views desc\
  limit 3"
-query2 = " "
+query2 = "select articles.author, count (*) as views\
+	from articles join log on log.path = concat('/article/', articles.slug)\
+	group by articles.author.id\
+	order by views desc\
+	limit 5"
 query3 = ""
 
 #connecting to db
@@ -35,8 +39,11 @@ def question_one(query1):
 
 #2. Who are the most popular article authors of all time? Present this as a sorted list (descending) 
 def question_two(query2):
-    print("Ursula La Multa - 2304 views")
-
+   
+	cur = connect_to_db()
+	cur.execute(query2)
+	result = cur.fetchall()
+	print(result)
 
 
 #3. on which days did more than 1% of requests lead to errors?
