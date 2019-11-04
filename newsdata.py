@@ -11,11 +11,11 @@ query1 = "select articles.title, count (*) as views\
  limit 3"
  #need to join the articles and the authors table by a single field 
 query2 = "select authors.name, count (*) as views\
-        from authors
-	from articles join log on log.path = concat('/article/', articles.slug)\
+        from authors\
+        join articles on authors.id = articles.author\
+        join log on log.path = concat('/article/', articles.slug)\
         group by authors.name\
-	order by views desc\
-	limit 5"
+	order by views desc"
 query3 = ""
 
 #connecting to db
