@@ -16,7 +16,11 @@ query2 = "select authors.name, count (*) as views\
         join log on log.path = concat('/article/', articles.slug)\
         group by authors.name\
 	order by views desc"
-query3 = ""
+
+#first gets total errors 2nd one gets total requests         
+query3 = "select count(*) as errors, date(time) as day from log where status = '404 NOT FOUND' group by day\
+           select count(*) as requests, date(time) as day  from log group by day\
+ "
 
 #connecting to db
 def connect_to_db():
