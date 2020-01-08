@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import psycopg2
 
 
@@ -27,7 +28,7 @@ query3 = " select errors_table.day, (errors::float/requests::float)*100 as perce
         (select count(*) as requests, date(time) as day from log group by day)\
         as requests_table\
         on errors_table.day = requests_table.day\
-        where  percentage > 1 "
+        where (errors::float/requests::float)*100 > 1 "
 
 # connecting to db
 
@@ -48,9 +49,8 @@ def question_one(query1):
     cur = connect_to_db()
     cur.execute(query1)
     result = cur.fetchall()
-    print(result)
-#print("'Princess Shellfish Marries Prince Handsome' - 1201 views")
-# return name and article views
+    for col in result:
+        print(str(col[0]) + " -- " + str(col[1]) + " views" )
 
 
 # 2. Who are the most popular article authors of all time? Present this as
@@ -65,13 +65,18 @@ def question_two(query2):
 
 # 3. on which days did more than 1% of requests lead to errors?
 def question_three(query3):
-    print("July 29, 2016 - 2.5% errors")
-
+    cur = connect_to_db()
+    cur.execute(query3)
+    result = cur.fetchall()
+    print(result)
 
 def main():
     # called connect to db, assinged cursor to cur
+    print("1. What are the most popular 3 articles of all time?")
     question_one(query1)
+    print("2. Who are the most popular article authors of all time?")
     question_two(query2)
+    print("3. On which days did more than 1% of requests lead to errors?")
     question_three(query3)
 
 
