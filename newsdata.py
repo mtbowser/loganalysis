@@ -60,7 +60,9 @@ def question_two(query2):
     cur = connect_to_db()
     cur.execute(query2)
     result = cur.fetchall()
-    print(result)
+    for col in result:
+        print(str(col[0]) + " -- " + str(col[1]) + " views" )
+
 
 
 # 3. on which days did more than 1% of requests lead to errors?
@@ -68,7 +70,9 @@ def question_three(query3):
     cur = connect_to_db()
     cur.execute(query3)
     result = cur.fetchall()
-    print(result)
+    for col in result:
+        print(str(col[0]) + " -- " + str(round(col[1], 2)) + "% errors" )
+
 
 def main():
     # called connect to db, assinged cursor to cur
