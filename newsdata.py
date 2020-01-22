@@ -2,10 +2,6 @@
 import psycopg2
 
 
-# psql -d news
-# explore the tables using the \dt and \d table commands and select statements
-# i want articles.title and number of views from the log table for that
-# article.
 query1 = "select articles.title, count (*) as views\
  from articles join log on log.path = concat('/article/', articles.slug)\
  group by articles.title\
@@ -17,7 +13,7 @@ query2 = "select authors.name, count (*) as views\
         join articles on authors.id = articles.author\
         join log on log.path = concat('/article/', articles.slug)\
         group by authors.name\
-	order by views desc"
+        order by views desc"
 
 # first gets total errors 2nd one gets total requests
 query3 = " select errors_table.day, (errors::float/requests::float)*100 as percentage\
@@ -50,7 +46,7 @@ def question_one(query1):
     cur.execute(query1)
     result = cur.fetchall()
     for col in result:
-        print(str(col[0]) + " -- " + str(col[1]) + " views" )
+        print(str(col[0]) + " -- " + str(col[1]) + " views")
 
 
 # 2. Who are the most popular article authors of all time? Present this as
@@ -61,8 +57,7 @@ def question_two(query2):
     cur.execute(query2)
     result = cur.fetchall()
     for col in result:
-        print(str(col[0]) + " -- " + str(col[1]) + " views" )
-
+        print(str(col[0]) + " -- " + str(col[1]) + " views")
 
 
 # 3. on which days did more than 1% of requests lead to errors?
@@ -71,7 +66,7 @@ def question_three(query3):
     cur.execute(query3)
     result = cur.fetchall()
     for col in result:
-        print(str(col[0]) + " -- " + str(round(col[1], 2)) + "% errors" )
+        print(str(col[0]) + " -- " + str(round(col[1], 2)) + "% errors")
 
 
 def main():
