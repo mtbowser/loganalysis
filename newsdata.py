@@ -16,9 +16,11 @@ query2 = "select authors.name, count (*) as views\
         order by views desc"
 
 # first gets total errors 2nd one gets total requests
-query3 = " select errors_table.day, (errors::float/requests::float)*100 as percentage\
+query3 = " select errors_table.day,\
+        (errors::float/requests::float)*100 as percentage\
         from \
-        (select count(*) as errors, date(time) as day from log where status = '404 NOT FOUND' group by day)\
+        (select count(*) as errors,\
+        date(time) as day from log where status ='404 NOT FOUND' group by day)\
         as errors_table\
         join \
         (select count(*) as requests, date(time) as day from log group by day)\
